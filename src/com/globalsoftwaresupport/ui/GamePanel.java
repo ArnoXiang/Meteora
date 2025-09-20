@@ -74,6 +74,11 @@ public class GamePanel extends JPanel {
 			handleLaserBeams(g);
 			handleMeteors(g);
 			handleScoreAndShields(g);
+			
+			// show pause indicator
+			if(GameVariables.PAUSED) {
+				handlePauseIndicator(g);
+			}
 		} else {
 			// this is the game over case
 			if(timer.isRunning())
@@ -97,6 +102,22 @@ public class GamePanel extends JPanel {
 		g.setFont(font);
 		g.drawString(App.getText("score") + GameVariables.SCORE, Constants.GAME_WIDTH - 150, 50);
 		g.drawString(App.getText("shields") + GameVariables.SHIELDS, 50, 50);
+	}
+	
+	private void handlePauseIndicator(Graphics g) {
+		// draw semi-transparent overlay
+		g.setColor(new Color(0, 0, 0, 128));
+		g.fillRect(0, 0, Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
+		
+		// draw pause text
+		Font font = new Font(App.getText("font"), Font.BOLD, 36);
+		FontMetrics fontMetrics = getFontMetrics(font);
+		
+		String pauseText = "PAUSED";
+		g.setColor(Color.WHITE);
+		g.setFont(font);
+		g.drawString(pauseText, Constants.GAME_WIDTH/2 - fontMetrics.stringWidth(pauseText)/2, 
+				Constants.GAME_HEIGHT/2);
 	}
 
 	private void gameOver(Graphics g) {
@@ -166,6 +187,11 @@ public class GamePanel extends JPanel {
 		
 		if(spaceShip.isDead()) {
 			GameVariables.IN_GAME = false;
+			return;
+		}
+		
+		// skip update if game is paused
+		if(GameVariables.PAUSED) {
 			return;
 		}
 		

@@ -17,4 +17,7 @@ public class GameVariables {
 	public volatile static boolean SHOW_DAMAGE = false;
 	public volatile static long DAMAGE_START_TIME = 0;
 	public static final long DAMAGE_DURATION = 1000; // 1 second
+	
+	// game pause state
+	public volatile static boolean PAUSED = false;
 }
