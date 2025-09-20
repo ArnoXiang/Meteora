@@ -92,7 +92,7 @@ public class GamePanel extends JPanel {
 			return;
 		}
 		
-		Font font = new Font(App.messages.getString("font"), Font.BOLD, 20);
+		Font font = new Font(App.getText("font"), Font.BOLD, 20);
 		g.setColor(Color.GRAY);
 		g.setFont(font);
 		g.drawString(App.getText("score") + GameVariables.SCORE, Constants.GAME_WIDTH - 150, 50);
@@ -104,7 +104,7 @@ public class GamePanel extends JPanel {
 		background.update(g);
 		
 		// GAME OVER !!!
-		Font font = new Font(App.messages.getString("font"), Font.BOLD, 50);
+		Font font = new Font(App.getText("font"), Font.BOLD, 50);
 		FontMetrics fontMetrics = getFontMetrics(font);
 		
 		String gameOverText = App.getText("game_over");
@@ -140,6 +140,19 @@ public class GamePanel extends JPanel {
 
 	private void handleSpaceShip(Graphics g) {
 		spaceShip.update(g);
+		
+		// handle ship damage indicator
+		if(GameVariables.SHOW_DAMAGE) {
+			long currentTime = System.currentTimeMillis();
+			if(currentTime - GameVariables.DAMAGE_START_TIME > GameVariables.DAMAGE_DURATION) {
+				GameVariables.SHOW_DAMAGE = false;
+			} else {
+				// draw damage indicator (red tint over the ship)
+				g.setColor(new Color(255, 0, 0, 100)); // semi-transparent red
+				g.fillRect(spaceShip.getX(), spaceShip.getY(), 
+					Constants.SHIP_WIDTH, Constants.SHIP_HEIGHT);
+			}
+		}
 	}
 
 	public void loop() {
@@ -214,6 +227,10 @@ public class GamePanel extends JPanel {
 			if(collisionDetector.collisionMeteorSpaceShip(meteor, spaceShip)) {
 				destroyedMeteor = meteor;
 				GameVariables.SHIELDS--;
+				
+				// trigger ship damage indicator
+				GameVariables.SHOW_DAMAGE = true;
+				GameVariables.DAMAGE_START_TIME = System.currentTimeMillis();
 						
 				if(GameVariables.SHIELDS < 0)
 					spaceShip.die();

@@ -12,4 +12,9 @@ public class GameVariables {
 	// the meteors can hit the ship 10x before game over
 	public volatile static int SHIELDS = 3;
 	public volatile static int SCORE = 0;
+	
+	// ship damage indicator
+	public volatile static boolean SHOW_DAMAGE = false;
+	public volatile static long DAMAGE_START_TIME = 0;
+	public static final long DAMAGE_DURATION = 1000; // 1 second
 }
