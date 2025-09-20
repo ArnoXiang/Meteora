@@ -100,25 +100,26 @@ public class GamePanel extends JPanel {
 	}
 
 	private void gameOver(Graphics g) {
-		
 		// want to move the background
 		background.update(g);
 		
 		// GAME OVER !!!
-		Font font = new Font("Helvetica", Font.BOLD, 50);
+		Font font = new Font(App.messages.getString("font"), Font.BOLD, 50);
 		FontMetrics fontMetrics = getFontMetrics(font);
+		
+		String gameOverText = App.getText("game_over");
 		
 		// draw game over
 		g.setColor(Color.WHITE);
 		g.setFont(font);
-		g.drawString(Constants.GAME_OVER, Constants.GAME_WIDTH/2 
-				-  fontMetrics.stringWidth(Constants.GAME_OVER)/2
+		g.drawString(gameOverText, Constants.GAME_WIDTH/2 
+				-  fontMetrics.stringWidth(gameOverText)/2
 				, Constants.GAME_HEIGHT/2-100);
-		
 		// draw the score
 		g.setColor(Color.YELLOW);
-		g.drawString("Score: " + GameVariables.SCORE, Constants.GAME_WIDTH/2 
-				- fontMetrics.stringWidth("Score: " + GameVariables.SCORE)/2
+		String scoreText = App.getText("score") + GameVariables.SCORE;
+		g.drawString(scoreText, Constants.GAME_WIDTH/2 
+				- fontMetrics.stringWidth(scoreText)/2
 				, Constants.GAME_HEIGHT-300);
 	}
 

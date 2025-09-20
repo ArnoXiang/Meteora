@@ -41,8 +41,8 @@ public class App {
 		// so we run the application on the Event Dispatch Thread (EDT)
 		EventQueue.invokeLater(() -> {
 			new GameMainFrame();
-		});	
-	};
+		});
+	}
 	public static String getText(String key) {
 		if (messages == null) {
 			// Resource bundle wasn't loaded. Return a helpful placeholder instead of NPE.
@@ -54,5 +54,5 @@ public class App {
 		} catch (MissingResourceException e) {
 			return key;
 		}
-    };
+    }
 }
