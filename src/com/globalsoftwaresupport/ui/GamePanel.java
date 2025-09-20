@@ -113,7 +113,7 @@ public class GamePanel extends JPanel {
 		Font font = new Font(App.getText("font"), Font.BOLD, 36);
 		FontMetrics fontMetrics = getFontMetrics(font);
 		
-		String pauseText = "PAUSED";
+		String pauseText = App.getText("paused");
 		g.setColor(Color.WHITE);
 		g.setFont(font);
 		g.drawString(pauseText, Constants.GAME_WIDTH/2 - fontMetrics.stringWidth(pauseText)/2, 

@@ -8,6 +8,7 @@ import javax.swing.JMenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import com.globalsoftwaresupport.app.App;
 import com.globalsoftwaresupport.constants.Constants;
 import com.globalsoftwaresupport.constants.GameVariables;
 import com.globalsoftwaresupport.image.ImageFactory;
@@ -44,20 +45,20 @@ public class GameMainFrame extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		
 		// Create File menu
-		JMenu fileMenu = new JMenu("Menu");
+		JMenu fileMenu = new JMenu(App.getText("menu"));
 		
 		// Create Pause/Resume menu item
-		JMenuItem pauseItem = new JMenuItem("Pause");
+		JMenuItem pauseItem = new JMenuItem(App.getText("pause"));
 		pauseItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GameVariables.PAUSED = !GameVariables.PAUSED;
-				pauseItem.setText(GameVariables.PAUSED ? "Resume" : "Pause");
+				pauseItem.setText(GameVariables.PAUSED ? App.getText("resume") : App.getText("pause"));
 			}
 		});
 		
 		// Create Quit menu item
-		JMenuItem quitItem = new JMenuItem("Quit");
+		JMenuItem quitItem = new JMenuItem(App.getText("quit"));
 		quitItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
